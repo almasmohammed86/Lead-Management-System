@@ -1,52 +1,217 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<div class="container mt-5">
-  <div class="card glassy p-4">
-    <h2 class="text-light mb-4"> Add New Lead</h2>
-    <form method="POST">
-      <div class="row g-3">
-        <div class="col-md-6">
-          <label class="form-label text-light">Name</label>
-          <input type="text" name="name" class="form-control" required>
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-1">
+                <i class="bi bi-person-plus-fill me-2"></i>
+                Add New Lead
+            </h2>
+
+            <p class="text-muted mb-0">
+                Create a new lead and add it to your CRM pipeline.
+            </p>
         </div>
 
-        <div class="col-md-6">
-          <label class="form-label text-light">Email</label>
-          <input type="email" name="email" class="form-control" required>
-        </div>
+        <a href="{{ url_for('view_leads') }}" class="btn btn-outline-light">
+            <i class="bi bi-arrow-left me-1"></i>
+            Back to Leads
+        </a>
+    </div>
 
-        <div class="col-md-6">
-          <label class="form-label text-light">Status</label>
-          <select name="status" class="form-select" required>
-            <option value="new">New</option>
-            <option value="contacted">Contacted</option>
-            <option value="converted">Converted</option>
-            <option value="dropped">Dropped</option>
-          </select>
-        </div>
 
-        <div class="col-md-6">
-          <label class="form-label text-light">Lead Score</label>
-          <input type="number" name="score" min="0" class="form-control" required>
-        </div>
+    <!-- Lead Form -->
+    <div class="card glassy p-4">
 
-        <div class="col-md-6">
-          <label class="form-label text-light">Next Follow-up Date</label>
-          <input type="date" name="next_followup" class="form-control" required>
-        </div>
+        <form method="POST">
 
-        <div class="col-12">
-          <label class="form-label text-light">Notes</label>
-          <textarea name="notes" rows="3" class="form-control"></textarea>
-        </div>
-      </div>
-      <div class="mt-4 text-end">
-        <button type="submit" class="btn btn-primary">Add Lead</button>
-        <a href="{{ url_for('view_leads') }}" class="btn btn-secondary ms-2">Cancel</a>
-      </div>
-    </form>
-  </div>
+            <!-- Basic Information -->
+            <div class="mb-4">
+
+                <h5 class="mb-3">
+                    <i class="bi bi-person-vcard me-2"></i>
+                    Lead Information
+                </h5>
+
+                <div class="row g-3">
+
+                    <!-- Name -->
+                    <div class="col-md-6">
+
+                        <label for="name" class="form-label">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            class="form-control"
+                            placeholder="Enter lead name"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="col-md-6">
+
+                        <label for="email" class="form-label">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-control"
+                            placeholder="example@company.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Status -->
+                    <div class="col-md-6">
+
+                        <label for="status" class="form-label">
+                            Lead Status
+                        </label>
+
+                        <select
+                            id="status"
+                            name="status"
+                            class="form-select"
+                            required
+                        >
+                            <option value="" disabled selected>
+                                Select status
+                            </option>
+
+                            <option value="new">
+                                New
+                            </option>
+
+                            <option value="contacted">
+                                Contacted
+                            </option>
+
+                            <option value="converted">
+                                Converted
+                            </option>
+
+                            <option value="dropped">
+                                Dropped
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Lead Score -->
+                    <div class="col-md-6">
+
+                        <label for="score" class="form-label">
+                            Lead Score
+                        </label>
+
+                        <input
+                            type="number"
+                            id="score"
+                            name="score"
+                            class="form-control"
+                            min="0"
+                            max="100"
+                            placeholder="0 - 100"
+                            required
+                        >
+
+                        <div class="form-text text-muted">
+                            Enter a score between 0 and 100.
+                        </div>
+
+                    </div>
+
+
+                    <!-- Follow-up -->
+                    <div class="col-md-6">
+
+                        <label for="next_followup" class="form-label">
+                            Next Follow-up Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="next_followup"
+                            name="next_followup"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Notes -->
+            <div class="mb-4">
+
+                <h5 class="mb-3">
+                    <i class="bi bi-journal-text me-2"></i>
+                    Additional Notes
+                </h5>
+
+                <label for="notes" class="form-label">
+                    Notes
+                </label>
+
+                <textarea
+                    id="notes"
+                    name="notes"
+                    class="form-control"
+                    rows="5"
+                    placeholder="Add any additional information about this lead..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- Form Actions -->
+            <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+
+                <a
+                    href="{{ url_for('view_leads') }}"
+                    class="btn btn-secondary"
+                >
+                    <i class="bi bi-x-lg me-1"></i>
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    <i class="bi bi-check-lg me-1"></i>
+                    Add Lead
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
 </div>
+
 {% endblock %}
-
-
